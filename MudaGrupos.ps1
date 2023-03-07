@@ -1,6 +1,8 @@
 # Muda o diretorio atual de trabalho para a pasta com os CSV, e onde serao salvos os arquivos de LOG
 Set-Location -Path "C:\Users\gsuiteuser\Desktop\AjusteGrupos"
 
+$dc = 'petinho.ufpe.br'
+
 # Importa os emails dos egressos de um .csv para uma lista de objetos PS
 $csv = Import-Csv ".\DriverConsumers.csv"
 
@@ -117,14 +119,14 @@ $nAjustados = 0
 foreach ($usuario in $usersDiscentes) {
     
     # Adiciona a membership correta ao usuario
-    Add-ADPrincipalGroupMembership -Identity $usuario.sAMAccountName -MemberOf ALUNO -Confirm:$false
+    Add-ADGroupMember -Members $usuario.sAMAccountName -Identity ALUNO -Confirm:$false -Server $dc
 
     # Remove as memberships indevidas ou desatualizadas do usuaio
-    Remove-ADGroupMember -Identity DOCENTE -Members $usuario.sAMAccountName -Confirm:$false
-    Remove-ADGroupMember -Identity EGRESSO -Members $usuario.sAMAccountName -Confirm:$false
-    Remove-ADGroupMember -Identity TECNICO -Members $usuario.sAMAccountName -Confirm:$false
-    Remove-ADGroupMember -Identity Residentes -Members $usuario.sAMAccountName -Confirm:$false
-    Remove-ADGroupMember -Identity POS-LATO -Members $usuario.sAMAccountName -Confirm:$false
+    Remove-ADGroupMember -Identity DOCENTE -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity EGRESSO -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity TECNICO -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity Residentes -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity POS-LATO -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
 
     $cpf = $usuario.sAMAccountName
     $email = $usuario.mail
@@ -147,14 +149,14 @@ $nAjustados = 0
 # Itera sobre cada usuario encontrado
 foreach ($usuario in $usersDocentes) {
 
-    Add-ADPrincipalGroupMembership -Identity $usuario.sAMAccountName -MemberOf DOCENTE -Confirm:$false
+    Add-ADGroupMember -Members $usuario.sAMAccountName -Identity DOCENTE -Confirm:$false -Server $dc
 
     
-    Remove-ADGroupMember -Identity ALUNO -Members $usuario.sAMAccountName -Confirm:$false
-    Remove-ADGroupMember -Identity EGRESSO -Members $usuario.sAMAccountName -Confirm:$false
-    Remove-ADGroupMember -Identity TECNICO -Members $usuario.sAMAccountName -Confirm:$false
-    Remove-ADGroupMember -Identity Residentes -Members $usuario.sAMAccountName -Confirm:$false
-    Remove-ADGroupMember -Identity POS-LATO -Members $usuario.sAMAccountName -Confirm:$false
+    Remove-ADGroupMember -Identity ALUNO -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity EGRESSO -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity TECNICO -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity Residentes -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity POS-LATO -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
 
 
     $cpf = $usuario.sAMAccountName
@@ -177,14 +179,14 @@ $nAjustados = 0
 # Itera sobre cada usuario encontrado
 foreach ($usuario in $usersEgressos) {
 
-    Add-ADPrincipalGroupMembership -Identity $usuario.sAMAccountName -MemberOf EGRESSO -Confirm:$false
+    Add-ADGroupMember -Members $usuario.sAMAccountName -Identity EGRESSO -Confirm:$false -Server $dc
 
 
-    Remove-ADGroupMember -Identity DOCENTE -Members $usuario.sAMAccountName -Confirm:$false
-    Remove-ADGroupMember -Identity ALUNO -Members $usuario.sAMAccountName -Confirm:$false
-    Remove-ADGroupMember -Identity TECNICO -Members $usuario.sAMAccountName -Confirm:$false
-    Remove-ADGroupMember -Identity Residentes -Members $usuario.sAMAccountName -Confirm:$false
-    Remove-ADGroupMember -Identity POS-LATO -Members $usuario.sAMAccountName -Confirm:$false
+    Remove-ADGroupMember -Identity DOCENTE -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity ALUNO -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity TECNICO -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity Residentes -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity POS-LATO -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
 
 
     $cpf = $usuario.sAMAccountName
@@ -207,14 +209,14 @@ $nAjustados = 0
 # Itera sobre cada usuario encontrado
 foreach ($usuario in $usersTecnicosAdm) {
 
-    Add-ADPrincipalGroupMembership -Identity $usuario.sAMAccountName -MemberOf TECNICO -Confirm:$false
+    Add-ADGroupMember -Members $usuario.sAMAccountName -Identity TECNICO -Confirm:$false -Server $dc
 
 
-    Remove-ADGroupMember -Identity DOCENTE -Members $usuario.sAMAccountNam -Confirm:$false
-    Remove-ADGroupMember -Identity EGRESSO -Members $usuario.sAMAccountNam -Confirm:$false
-    Remove-ADGroupMember -Identity ALUNO -Members $usuario.sAMAccountName -Confirm:$false
-    Remove-ADGroupMember -Identity Residentes -Members $usuario.sAMAccountName -Confirm:$false
-    Remove-ADGroupMember -Identity POS-LATO -Members $usuario.sAMAccountName -Confirm:$false
+    Remove-ADGroupMember -Identity DOCENTE -Members $usuario.sAMAccountNam -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity EGRESSO -Members $usuario.sAMAccountNam -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity ALUNO -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity Residentes -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity POS-LATO -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
 
 
     $cpf = $usuario.sAMAccountName
@@ -237,14 +239,14 @@ $nAjustados = 0
 # Itera sobre cada usuario encontrado
 foreach ($usuario in $usersResidentes) {
 
-    Add-ADPrincipalGroupMembership -Identity $usuario.sAMAccountName -MemberOf Residentes -Confirm:$false
+    Add-ADGroupMember -Members $usuario.sAMAccountName -Identity Residentes -Confirm:$false -Server $dc
 
 
-    Remove-ADGroupMember -Identity DOCENTE -Members $usuario.sAMAccountNam -Confirm:$false
-    Remove-ADGroupMember -Identity EGRESSO -Members $usuario.sAMAccountName -Confirm:$false
-    Remove-ADGroupMember -Identity TECNICO -Members $usuario.sAMAccountName -Confirm:$false
-    Remove-ADGroupMember -Identity ALUNO -Members $usuario.sAMAccountNam -Confirm:$false
-    Remove-ADGroupMember -Identity POS-LATO -Members $usuario.sAMAccountName -Confirm:$false
+    Remove-ADGroupMember -Identity DOCENTE -Members $usuario.sAMAccountNam -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity EGRESSO -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity TECNICO -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity ALUNO -Members $usuario.sAMAccountNam -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity POS-LATO -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
 
 
     $cpf = $usuario.sAMAccountName
@@ -268,14 +270,14 @@ $nAjustados = 0
 # Itera sobre cada usuario encontrado
 foreach ($usuario in $usersPosLato) {
 
-    Add-ADPrincipalGroupMembership -Identity $usuario.sAMAccountName -MemberOf POS-LATO -Confirm:$false
+    Add-ADGroupMember -Members $usuario.sAMAccountName -Identity POS-LATO -Confirm:$false -Server $dc
 
 
-    Remove-ADGroupMember -Identity DOCENTE -Members $usuario.sAMAccountName -Confirm:$false
-    Remove-ADGroupMember -Identity EGRESSO -Members $usuario.sAMAccountName -Confirm:$false
-    Remove-ADGroupMember -Identity TECNICO -Members $usuario.sAMAccountName -Confirm:$false
-    Remove-ADGroupMember -Identity Residentes -Members $usuario.sAMAccountName -Confirm:$false
-    Remove-ADGroupMember -Identity ALUNO -Members $usuario.sAMAccountName -Confirm:$false
+    Remove-ADGroupMember -Identity DOCENTE -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity EGRESSO -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity TECNICO -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity Residentes -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
+    Remove-ADGroupMember -Identity ALUNO -Members $usuario.sAMAccountName -Confirm:$false -Server $dc
 
     
     $cpf = $usuario.sAMAccountName
